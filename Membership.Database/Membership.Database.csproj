@@ -21,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contexts\" />
     <Folder Include="Extensions\" />
     <Folder Include="Services\" />
   </ItemGroup>

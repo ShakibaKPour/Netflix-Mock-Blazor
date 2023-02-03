@@ -1,17 +1,17 @@
 ﻿namespace Common.DTOs;
 
-public class DirectorDTO
+public class GenreDTO
 {
     public int Id { get; set; }
     public string? Name { get; set; }
 }
 
-public class DirectorCreateDTO
+public class GenreCreateDTO
 {
     public string? Name { get; set; }
 }
 
-public class DirectorEditDTO : DirectorCreateDTO
+public class GenreEditDTO : GenreCreateDTO
 {
     public int Id { get; set; }
 }
