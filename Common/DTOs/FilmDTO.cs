@@ -16,7 +16,7 @@ public class FilmDTO
     public DirectorDTO? Director { get; set; }
     public List<GenreDTO>? Genres { get; set; }
 
-    public List<SimilarFilmsDTO>? SimilarFilms { get; set; }
+    public List<FilmDTO>? SimilarFilms { get; set; }
 }
 
 public class FilmCreateDTO

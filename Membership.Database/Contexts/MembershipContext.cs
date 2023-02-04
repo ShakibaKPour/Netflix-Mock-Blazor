@@ -2,14 +2,14 @@
 
 namespace Membership.Database.Contexts;
 
-public class Context : DbContext
+public class MembershipContext : DbContext
 {
     public DbSet<Director> Directors => Set<Director>();
     public DbSet<Film> Films => Set<Film>();
     public DbSet<Genre> Genres => Set<Genre>();
     public DbSet<FilmGenre> FilmGenres=> Set<FilmGenre>();
     public DbSet<SimilarFilm> SimilarFilms=> Set<SimilarFilm>();
-    public Context(DbContextOptions<Context> options) : base(options)
+    public MembershipContext(DbContextOptions<MembershipContext> options) : base(options)
     {
 
     }
@@ -21,6 +21,8 @@ public class Context : DbContext
         {
             relationship.DeleteBehavior = DeleteBehavior.Restrict;
         }
+        builder.Entity<FilmGenre>().HasKey(fg =>
+        new { fg.FilmId, fg.GenreId });
     }
 
 }

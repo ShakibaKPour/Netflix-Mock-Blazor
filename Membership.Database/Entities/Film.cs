@@ -21,6 +21,6 @@ public class Film : IEntity
     public Director? Director { get; set; }
     public virtual ICollection<Genre>? Genres { get; set; }
 
-    public virtual ICollection<SimilarFilm>? SimilarFilms { get;set; }
+    public virtual ICollection<Film>? SimilarFilms { get;set; }
 
 }

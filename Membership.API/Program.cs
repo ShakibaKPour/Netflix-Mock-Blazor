@@ -1,5 +1,6 @@
 
 using Membership.Database.Contexts;
+using Membership.Database.Services;
 using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<MembershipContext>(
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("NetflixConnection")));
+
+builder.Services.AddScoped<IDbService, DbService>();
 
 var app = builder.Build();
 

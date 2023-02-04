@@ -2,7 +2,7 @@
 
 namespace Membership.Database.Entities;
 
-public class SimilarFilm : IReferenceEntity
+public class SimilarFilm 
 {
     public int ParentFilmId { get; set; }
     public Film ParentFilm { get; set; }
