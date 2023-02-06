@@ -1,4 +1,5 @@
 ﻿using Membership.Database.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Membership.Database.Contexts;
 
@@ -21,6 +22,7 @@ public class MembershipContext : DbContext
         {
             relationship.DeleteBehavior = DeleteBehavior.Restrict;
         }
+        builder.Entity<SimilarFilm>().HasKey(ci => new { ci.FilmId, ci.SimilarFilmId });
         builder.Entity<FilmGenre>().HasKey(fg =>
         new { fg.FilmId, fg.GenreId });
     }

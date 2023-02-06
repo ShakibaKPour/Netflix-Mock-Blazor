@@ -7,6 +7,6 @@ public class FilmGenre
     public int FilmId { get; set; }
     public int GenreId { get; set; }
 
-    public Film? FilmName { get; set; }
-    public Genre? GenreCategory { get; set; }
+    public virtual Film FilmName { get; set; } = null!;
+    public virtual Genre GenreCategory { get; set; } = null!;
 }
