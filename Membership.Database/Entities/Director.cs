@@ -1,6 +1,6 @@
 ﻿namespace Membership.Database.Entities;
 
-public class Director
+public class Director : IEntity
 {
     public int Id { get; set; }
     [MaxLength(50), Required]

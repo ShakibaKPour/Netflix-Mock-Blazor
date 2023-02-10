@@ -46,11 +46,10 @@ namespace Membership.Database.Migrations
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Released = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DirectorId = table.Column<int>(type: "int", nullable: true),
+                    DirectorId = table.Column<int>(type: "int", nullable: false),
                     Free = table.Column<bool>(type: "bit", nullable: false),
                     FilmUrl = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false),
-                    ImageUrl = table.Column<string>(type: "nvarchar(225)", maxLength: 225, nullable: false),
-                    FilmId = table.Column<int>(type: "int", nullable: true)
+                    ImageUrl = table.Column<string>(type: "nvarchar(225)", maxLength: 225, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,40 +60,10 @@ namespace Membership.Database.Migrations
                         principalTable: "Directors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Films_Films_FilmId",
-                        column: x => x.FilmId,
-                        principalTable: "Films",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "FilmGenre",
-                columns: table => new
-                {
-                    FilmsId = table.Column<int>(type: "int", nullable: false),
-                    GenresId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FilmGenre", x => new { x.FilmsId, x.GenresId });
-                    table.ForeignKey(
-                        name: "FK_FilmGenre_Films_FilmsId",
-                        column: x => x.FilmsId,
-                        principalTable: "Films",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_FilmGenre_Genres_GenresId",
-                        column: x => x.GenresId,
-                        principalTable: "Genres",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FilmGenres",
                 columns: table => new
                 {
                     FilmId = table.Column<int>(type: "int", nullable: false),
@@ -102,15 +71,15 @@ namespace Membership.Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FilmGenres", x => new { x.FilmId, x.GenreId });
+                    table.PrimaryKey("PK_FilmGenre", x => new { x.FilmId, x.GenreId });
                     table.ForeignKey(
-                        name: "FK_FilmGenres_Films_FilmId",
+                        name: "FK_FilmGenre_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_FilmGenres_Genres_GenreId",
+                        name: "FK_FilmGenre_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
@@ -121,36 +90,28 @@ namespace Membership.Database.Migrations
                 name: "SimilarFilms",
                 columns: table => new
                 {
-                    SimilarFilmId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     ParentFilmId = table.Column<int>(type: "int", nullable: false),
-                    SimilarId = table.Column<int>(type: "int", nullable: false)
+                    SimilarFilmId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SimilarFilms", x => x.SimilarFilmId);
+                    table.PrimaryKey("PK_SimilarFilms", x => new { x.ParentFilmId, x.SimilarFilmId });
                     table.ForeignKey(
                         name: "FK_SimilarFilms_Films_ParentFilmId",
                         column: x => x.ParentFilmId,
                         principalTable: "Films",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_SimilarFilms_Films_SimilarId",
-                        column: x => x.SimilarId,
+                        name: "FK_SimilarFilms_Films_SimilarFilmId",
+                        column: x => x.SimilarFilmId,
                         principalTable: "Films",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FilmGenre_GenresId",
+                name: "IX_FilmGenre_GenreId",
                 table: "FilmGenre",
-                column: "GenresId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FilmGenres_GenreId",
-                table: "FilmGenres",
                 column: "GenreId");
 
             migrationBuilder.CreateIndex(
@@ -159,19 +120,9 @@ namespace Membership.Database.Migrations
                 column: "DirectorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Films_FilmId",
-                table: "Films",
-                column: "FilmId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SimilarFilms_ParentFilmId",
+                name: "IX_SimilarFilms_SimilarFilmId",
                 table: "SimilarFilms",
-                column: "ParentFilmId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SimilarFilms_SimilarId",
-                table: "SimilarFilms",
-                column: "SimilarId");
+                column: "SimilarFilmId");
         }
 
         /// <inheritdoc />
@@ -179,9 +130,6 @@ namespace Membership.Database.Migrations
         {
             migrationBuilder.DropTable(
                 name: "FilmGenre");
-
-            migrationBuilder.DropTable(
-                name: "FilmGenres");
 
             migrationBuilder.DropTable(
                 name: "SimilarFilms");

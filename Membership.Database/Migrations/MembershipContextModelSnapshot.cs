@@ -22,21 +22,6 @@ namespace Membership.Database.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FilmGenre", b =>
-                {
-                    b.Property<int>("FilmsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenresId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FilmsId", "GenresId");
-
-                    b.HasIndex("GenresId");
-
-                    b.ToTable("FilmGenre");
-                });
-
             modelBuilder.Entity("Membership.Database.Entities.Director", b =>
                 {
                     b.Property<int>("Id")
@@ -68,10 +53,7 @@ namespace Membership.Database.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("DirectorId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FilmId")
+                    b.Property<int>("DirectorId")
                         .HasColumnType("int");
 
                     b.Property<string>("FilmUrl")
@@ -79,8 +61,7 @@ namespace Membership.Database.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("nvarchar(1024)");
 
-                    b.Property<bool?>("Free")
-                        .IsRequired()
+                    b.Property<bool>("Free")
                         .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
@@ -88,8 +69,7 @@ namespace Membership.Database.Migrations
                         .HasMaxLength(225)
                         .HasColumnType("nvarchar(225)");
 
-                    b.Property<DateTime?>("Released")
-                        .IsRequired()
+                    b.Property<DateTime>("Released")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -100,8 +80,6 @@ namespace Membership.Database.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DirectorId");
-
-                    b.HasIndex("FilmId");
 
                     b.ToTable("Films");
                 });
@@ -118,7 +96,7 @@ namespace Membership.Database.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("FilmGenres");
+                    b.ToTable("FilmGenre", (string)null);
                 });
 
             modelBuilder.Entity("Membership.Database.Entities.Genre", b =>
@@ -141,40 +119,17 @@ namespace Membership.Database.Migrations
 
             modelBuilder.Entity("Membership.Database.Entities.SimilarFilm", b =>
                 {
-                    b.Property<int>("SimilarFilmId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SimilarFilmId"));
-
                     b.Property<int>("ParentFilmId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SimilarId")
+                    b.Property<int>("SimilarFilmId")
                         .HasColumnType("int");
 
-                    b.HasKey("SimilarFilmId");
+                    b.HasKey("ParentFilmId", "SimilarFilmId");
 
-                    b.HasIndex("ParentFilmId");
-
-                    b.HasIndex("SimilarId");
+                    b.HasIndex("SimilarFilmId");
 
                     b.ToTable("SimilarFilms");
-                });
-
-            modelBuilder.Entity("FilmGenre", b =>
-                {
-                    b.HasOne("Membership.Database.Entities.Film", null)
-                        .WithMany()
-                        .HasForeignKey("FilmsId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Membership.Database.Entities.Genre", null)
-                        .WithMany()
-                        .HasForeignKey("GenresId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Membership.Database.Entities.Film", b =>
@@ -182,12 +137,8 @@ namespace Membership.Database.Migrations
                     b.HasOne("Membership.Database.Entities.Director", "Director")
                         .WithMany()
                         .HasForeignKey("DirectorId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Membership.Database.Entities.Film", null)
-                        .WithMany("SimilarFilms")
-                        .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Director");
                 });
@@ -213,19 +164,18 @@ namespace Membership.Database.Migrations
 
             modelBuilder.Entity("Membership.Database.Entities.SimilarFilm", b =>
                 {
-                    b.HasOne("Membership.Database.Entities.Film", "ParentFilm")
-                        .WithMany()
+                    b.HasOne("Membership.Database.Entities.Film", "Film")
+                        .WithMany("SimilarFilms")
                         .HasForeignKey("ParentFilmId")
-                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Membership.Database.Entities.Film", "Similar")
                         .WithMany()
-                        .HasForeignKey("SimilarId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("SimilarFilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ParentFilm");
+                    b.Navigation("Film");
 
                     b.Navigation("Similar");
                 });

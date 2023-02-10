@@ -1,6 +1,6 @@
 ﻿namespace Membership.Database.Entities;
 
-public class Genre
+public class Genre : IEntity
 {
     public Genre()
     {
