@@ -34,6 +34,7 @@ var config = new AutoMapper.MapperConfiguration(cfg =>
     cfg.CreateMap<Film, FilmDTO>().ReverseMap();
     cfg.CreateMap<Genre, GenreDTO>().ReverseMap();
     cfg.CreateMap<SimilarFilm, SimilarFilmDTO>().ReverseMap();
+    cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
 });
 var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);

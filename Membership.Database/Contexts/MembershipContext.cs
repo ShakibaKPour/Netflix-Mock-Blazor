@@ -10,11 +10,11 @@ public class MembershipContext : DbContext
     public DbSet<Director> Directors => Set<Director>();
     public DbSet<Film> Films => Set<Film>();
     public DbSet<Genre> Genres => Set<Genre>();
-    public DbSet<FilmGenre> FilmGenres=> Set<FilmGenre>();
-    public DbSet<SimilarFilm> SimilarFilms=> Set<SimilarFilm>();
+    public DbSet<FilmGenre> FilmGenres => Set<FilmGenre>();
+    public DbSet<SimilarFilm> SimilarFilms => Set<SimilarFilm>();
 
     private string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta urna urna, eu consequat elit egestas eu. Fusce tincidunt, nisl aliquam porta efficitur, arcu velit auctor ipsum, non congue diam turpis in erat. Proin sapien purus, tempus sit amet leo et, faucibus sollicitudin risus. Proin non sem hendrerit, volutpat ipsum sit amet, interdum lacus. Donec dictum sagittis interdum. Mauris nec lorem et felis efficitur commodo. Suspendisse ornare augue pharetra ullamcorper porttitor. Nulla vel augue lacus. Curabitur ac commodo lorem, eget vulputate erat. Aliquam pretium elit risus, quis porta nisi lobortis id. Praesent vel luctus risus, vulputate sagittis lectus. Integer sem velit, molestie quis tincidunt eu, facilisis ac elit. Proin nisl nisl, varius vel dui non, vehicula tincidunt lacus. Nunc tincidunt sapien sed risus placerat, sodales dictum leo mattis. Ut molestie urna non risus consequat, vitae facilisis dui mollis.";
-       
+
     public MembershipContext(DbContextOptions<MembershipContext> options) : base(options)
     {
 
@@ -60,7 +60,22 @@ public class MembershipContext : DbContext
 
     }
 
-    //private void ConfigureRelationsTable(ModelBuilder modelBuilder)
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=MembershipDb",
+    //        sqlServerOptionsAction: sqlOptions =>
+    //        {
+    //            sqlOptions.EnableRetryOnFailure(
+    //                maxRetryCount: 10,
+    //                maxRetryDelay: TimeSpan.FromSeconds(30),
+    //                errorNumbersToAdd: null);
+    //        });
+    //}
+
+}
+
+
+//private void ConfigureRelationsTable(ModelBuilder modelBuilder)
     //{
     //    modelBuilder.Entity<Film>(entity =>
     //    {
@@ -181,4 +196,4 @@ public class MembershipContext : DbContext
     //        new FilmGenre { FilmId = 5, GenreId = 2 }
     //        new FilmGenre { FilmId = 5, GenreId = 3 });
     //}
-}
+

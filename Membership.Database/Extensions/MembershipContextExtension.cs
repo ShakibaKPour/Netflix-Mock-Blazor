@@ -92,23 +92,20 @@ public static class MembershipContextExtension
                 Title = "Gladiator",
                 Description = description,
                 Released = new DateTime(2000, 1, 1),
-                Free = true,
+                Free = false,
                 FilmUrl = "https://www.youtube.com/embed/uvbavW31adA",
                 ImageUrl = "/Images/Gladiator.jfif",
-                DirectorId = director1.Id,
-                Genres = new List<GenreDTO> { genre5, genre1, genre2 }
-
+                DirectorId = director1.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
             {
                 Title = "The Dark Knight",
                 Description = description,
                 Released = new DateTime(2008, 1, 1),
-                Free = true,
+                Free = false,
                 FilmUrl = "https://www.youtube.com/embed/EXeTwQWrcwY",
                 ImageUrl = "/Images/DarkKnight.jfif",
-                DirectorId = director2.Id,
-                Genres = new List<GenreDTO> { genre4, genre5, genre2 }
+                DirectorId = director2.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
             {
@@ -118,8 +115,7 @@ public static class MembershipContextExtension
                 Free = true,
                 FilmUrl = "https://www.youtube.com/embed/iojhqm0JTW4",
                 ImageUrl = "/Images/Departed.jfif",
-                DirectorId = director3.Id,
-                Genres = new List<GenreDTO> { genre5, genre3, genre2 }
+                DirectorId = director3.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
             {
@@ -129,8 +125,7 @@ public static class MembershipContextExtension
                 Free = true,
                 FilmUrl = "https://www.youtube.com/embed/r5X-hFf6Bwo", //title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>",
                 ImageUrl = "/Images/LOR.jfif",
-                DirectorId = director4.Id,
-                Genres = new List<GenreDTO> { genre4, genre1, genre2 }
+                DirectorId = director4.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
             {
@@ -140,79 +135,141 @@ public static class MembershipContextExtension
                 Free = true,
                 FilmUrl = "https://www.youtube.com/embed/yknIZsvQjG4", // title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>",
                 ImageUrl = "/Images/BloodDimond.jfif",
-                DirectorId = director5.Id,
-                Genres = new List<GenreDTO> { genre3, genre1, genre2 },
-             //  SimilarFilms= new List<FilmDTO> { new FilmDTO{ Id=1}, new FilmDTO { Id=2}, new FilmDTO { Id=3} }
+                DirectorId = director5.Id
             });
             await service.SaveChangeAsync();
 
             var film1 = await service.SingleAsync<Film,FilmDTO>(f => f.Title.Equals("Gladiator"));
             var film2 = await service.SingleAsync<Film, FilmDTO>(f => f.Title.Equals("The Dark Knight"));
+            var film3 = await service.SingleAsync<Film, FilmDTO>(f => f.Title.Equals("The Departed"));
+            var film4 = await service.SingleAsync<Film, FilmDTO>(f => f.Title.Equals("Lord Of the Rings"));
+            var film5 = await service.SingleAsync<Film, FilmDTO>(f => f.Title.Equals("Blood Dimond"));
 
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId=film1.Id,
+                ParentFilmId= film1.Id,
                 SimilarFilmId = film2.Id 
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 1,
-                SimilarFilmId = 3
+                ParentFilmId = film1.Id,
+                SimilarFilmId = film3.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 2,
-                SimilarFilmId = 1
+                ParentFilmId = film2.Id,
+                SimilarFilmId = film1.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 2,
-                SimilarFilmId = 3
+                ParentFilmId = film2.Id,
+                SimilarFilmId = film3.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 2,
-                SimilarFilmId = 4
+                ParentFilmId = film2.Id,
+                SimilarFilmId = film4.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 3,
-                SimilarFilmId = 1
+                ParentFilmId = film3.Id,
+                SimilarFilmId = film1.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 3,
-                SimilarFilmId = 2
+                ParentFilmId = film3.Id,
+                SimilarFilmId = film2.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 4,
-                SimilarFilmId = 2
+                ParentFilmId = film4.Id,
+                SimilarFilmId = film2.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 5,
-                SimilarFilmId = 1
+                ParentFilmId = film4.Id,
+                SimilarFilmId = film1.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 5,
-                SimilarFilmId = 2
+                ParentFilmId = film5.Id,
+                SimilarFilmId = film2.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 5,
-                SimilarFilmId = 3
+                ParentFilmId = film5.Id,
+                SimilarFilmId = film3.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = 5,
-                SimilarFilmId = 4
+                ParentFilmId = film5.Id,
+                SimilarFilmId = film4.Id
             });
 
             await service.SaveChangeAsync();
 
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film1.Id,
+                GenreId = genre2.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film1.Id,
+                GenreId = genre3.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film1.Id,
+                GenreId = genre5.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film2.Id,
+                GenreId = genre1.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film2.Id,
+                GenreId = genre2.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film3.Id,
+                GenreId = genre1.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film3.Id,
+                GenreId = genre5.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film4.Id,
+                GenreId = genre2.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film5.Id,
+                GenreId = genre3.Id
+            });
 
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film5.Id,
+                GenreId = genre8.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film5.Id,
+                GenreId = genre7.Id
+            });
+            await service.AddReferenceAsync<FilmGenre, FilmGenreDTO>(new FilmGenreDTO
+            {
+                FilmId = film5.Id,
+                GenreId = genre6.Id
+            });
+            await service.SaveChangeAsync();
         }
         catch (Exception ex)
         {

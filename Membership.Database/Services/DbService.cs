@@ -13,6 +13,18 @@ public class DbService : IDbService
         _mapper = mapper;
     }
 
+    public async Task<TEntity?> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> expression)
+     where TEntity : class, IEntity => await _db.Set<TEntity>().SingleOrDefaultAsync(expression);
+
+
+    public async Task<TDto> SingleAsync<TEntity, TDto>(Expression<Func<TEntity, bool>> expression)
+        where TEntity : class, IEntity
+        where TDto : class
+    {
+        var entity = await SingleAsync(expression);
+        return _mapper.Map<TDto>(entity);
+    }
+
     public async Task<TEntity> AddAsync<TEntity, TDto>(TDto dto)
         where TEntity : class, IEntity
         where TDto : class
@@ -65,17 +77,6 @@ public class DbService : IDbService
 
     public async Task<bool> SaveChangeAsync() => await _db.SaveChangesAsync() > 0;
 
-    public async Task<TEntity?> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> expression)
-        where TEntity : class, IEntity => await _db.Set<TEntity>().SingleOrDefaultAsync(expression);
-    
-
-    public async Task<TDto> SingleAsync<TEntity, TDto>(Expression<Func<TEntity, bool>> expression)
-        where TEntity : class, IEntity
-        where TDto : class
-    {
-        var entity =  await SingleAsync(expression);
-        return _mapper.Map<TDto>(entity);
-    }
 
     public void Update<TEntity, TDto>(int id, TDto dto)
         where TEntity : class, IEntity
@@ -98,6 +99,18 @@ public class DbService : IDbService
 
     }
 
+    public void IncludeRef<TEntity>()
+        where TEntity : class, IReferenceEntity
+    {
+        var propertyNames = _db.Model.FindEntityType(typeof(TEntity))?.GetNavigations().Select(e => e.Name);
+
+        if (propertyNames is null) return;
+
+        foreach (var names in propertyNames)
+            _db.Set<TEntity>().Include(names).Load();
+
+    }
+
     public async Task<TEntity> AddReferenceAsync<TEntity, TDto>(TDto dto)
         where TEntity : class, IReferenceEntity
         where TDto : class
@@ -105,5 +118,20 @@ public class DbService : IDbService
         var refEntity = _mapper.Map<TEntity>(dto);
         await _db.Set<TEntity>().AddAsync(refEntity);
         return refEntity;
+    }
+
+    public bool Delete<TReferenceEntity, TDto>(TDto dto)
+       where TReferenceEntity : class, IReferenceEntity
+       where TDto : class
+    {
+        try
+        {
+            var entity = _mapper.Map<TReferenceEntity>(dto);
+            if (entity is null) return false;
+            _db.Remove(entity);
+        }
+        catch (Exception ex) { throw; }
+
+        return true;
     }
 }
