@@ -7,6 +7,6 @@ public class FilmGenre : IReferenceEntity
     public int FilmId { get; set; }
     public int GenreId { get; set; }
 
-    public virtual Film FilmName { get; set; } = null!;
-    public virtual Genre GenreCategory { get; set; } = null!;
+    public virtual Film Film { get; set; } = null!;
+    public virtual Genre Genre { get; set; } = null!;
 }

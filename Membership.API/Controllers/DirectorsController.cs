@@ -21,9 +21,9 @@ namespace Membership.API.Controllers
         {
             try
             {
-                _db.Include<Film>();
+               // _db.Include<Film>();
 
-                var directors = await _db.GetAsync<Film, FilmDTO>();
+                var directors = await _db.GetAsync<Director, DirectorDTO>();
                 return Results.Ok(directors);
 
             }
@@ -37,7 +37,7 @@ namespace Membership.API.Controllers
         {
             try
             {
-                _db.Include<Film>();
+                //_db.Include<Film>();
                 var director = await _db.GetAsync<Director, DirectorDTO>(d=> d.Id.Equals(id));
                 return Results.Ok(director);
             }
