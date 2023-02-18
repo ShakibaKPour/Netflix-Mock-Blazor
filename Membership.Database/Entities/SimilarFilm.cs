@@ -22,7 +22,7 @@ namespace Membership.Database.Entities;
 public class SimilarFilm : IReferenceEntity
 {
     
-    public int ParentFilmId { get; set; }
+    public int FilmId { get; set; }
     public int SimilarFilmId { get; set; }
     public virtual Film Film { get; set; } = null!;
 

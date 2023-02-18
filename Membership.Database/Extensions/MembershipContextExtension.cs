@@ -147,62 +147,62 @@ public static class MembershipContextExtension
 
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId= film1.Id,
+                FilmId= film1.Id,
                 SimilarFilmId = film2.Id 
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film1.Id,
+                FilmId = film1.Id,
                 SimilarFilmId = film3.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film2.Id,
+                FilmId = film2.Id,
                 SimilarFilmId = film1.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film2.Id,
+                FilmId = film2.Id,
                 SimilarFilmId = film3.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film2.Id,
+                FilmId = film2.Id,
                 SimilarFilmId = film4.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film3.Id,
+                FilmId = film3.Id,
                 SimilarFilmId = film1.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film3.Id,
+                FilmId = film3.Id,
                 SimilarFilmId = film2.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film4.Id,
+                FilmId = film4.Id,
                 SimilarFilmId = film2.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film4.Id,
+                FilmId = film4.Id,
                 SimilarFilmId = film1.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film5.Id,
+                FilmId = film5.Id,
                 SimilarFilmId = film2.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film5.Id,
+                FilmId = film5.Id,
                 SimilarFilmId = film3.Id
             });
             await service.AddReferenceAsync<SimilarFilm, SimilarFilmDTO>(new SimilarFilmDTO
             {
-                ParentFilmId = film5.Id,
+                FilmId = film5.Id,
                 SimilarFilmId = film4.Id
             });
 

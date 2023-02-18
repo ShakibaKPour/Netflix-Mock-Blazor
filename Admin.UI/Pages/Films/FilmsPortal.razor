@@ -1,7 +1,105 @@
-﻿<h3>FilmsPortal</h3>
+﻿@using Common.Services;
 
+@inject IAdminService AdminService
+
+@*<h3>@Navigation</h3>*@
+
+@if (alert != string.Empty)
+{
+    <div class="d-flex">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@alert</strong>
+            <button type="button" @onclick="CloseAlert" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
+@if (Navigation == PageType.Create)
+{
+    <ChangeFilm Page="@Navigation" OnChange="OnChange"></ChangeFilm>
+}
+
+@if (Navigation == PageType.Delete || Navigation== PageType.Edit)
+{
+    <ChangeFilm Page="@Navigation" OnChange="OnChange" Model="Film"></ChangeFilm>
+}
+
+<div class="d-flex me-1">
+    <a href="/" class="btn btn-outline-secondary rounded-0 me-1">Home</a>
+    <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Index)">Index</button>
+    <button type="button" class="btn btn-outline-success rounded-0" @onclick="()=>ChangePageType(PageType.Create)">Create</button>
+</div>
+
+<FilmIndex OnClick="OnClick" Model="Model"></FilmIndex>
 
 
 @code {
+    List<FilmDTO> Model { get; set; } = new();
 
+    string alert = string.Empty;
+    string Navigation = string.Empty;
+    public FilmDTO Film { get; set; } = new();
+
+    void ChangePageType(string pageType)
+    {
+        Navigation = pageType;
+    }
+    void CloseAlert()
+    {
+        alert = string.Empty;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        alert = string.Empty;
+
+        //Model = await AdminService.GetAsync<FilmDTO>($"films?freeonly=false");
+
+        //var film = await AdminService.SingleAsync<FilmDTO>($"films/1");
+
+        //await AdminService.CreateAsync<FilmCreateDTO>($"films",
+        //new FilmCreateDTO
+        //{
+        //    Description="...", DirectorId=1, FilmUrl="...", ImageUrl="...", 
+        //    Released=new DateTime (2020), Title="..."   
+        //});
+
+        //await AdminService.EditAsync<FilmEditDTO>($"films/5",
+        //new FilmEditDTO
+        //    {
+        //        Id= 5,
+        //        Description = "upd...",
+        //        DirectorId = 1,
+        //        FilmUrl = "upd...",
+        //        ImageUrl = "upd...",
+        //        Released = new DateTime(2020),
+        //        Title = "upd..."
+        //    });
+
+        //await AdminService.DeleteAsync<FilmDTO>($"films/5");
+
+        Model = await AdminService.GetAsync<FilmDTO>($"films?freeonly=false");
+
+    }
+
+    async Task OnClick(ClickModel model)
+    {
+        if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
+            Film = await AdminService.SingleAsync<FilmDTO>($"films/{model.Id}")?? new();
+        ChangePageType(model.PageType);
+    }
+
+    async Task OnChange(string message)
+    {
+        try
+        {
+            alert = message;
+            Model = await AdminService.GetAsync<FilmDTO>("films");
+            ChangePageType(PageType.Index);
+        }
+        catch
+        {
+            alert = "Couldn't create/edit/delete the course.";
+        }
+    }
 }

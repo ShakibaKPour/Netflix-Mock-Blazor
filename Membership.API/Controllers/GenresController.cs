@@ -21,7 +21,8 @@ namespace Membership.API.Controllers
         {
             try
             {
-                _db.Include<Film>();
+                _db.Include<Genre>();
+                _db.IncludeRef<FilmGenre>();
                 var entities = await _db.GetAsync<Genre, GenreDTO>();
                 return Results.Ok(entities);
             }
@@ -35,7 +36,7 @@ namespace Membership.API.Controllers
         {
             try
             { 
-                _db.Include<Film>();
+                _db.Include<Genre>();
                 _db.IncludeRef<FilmGenre>();
 
                 var entity = _db.SingleAsync<Genre, GenreDTO>(g=> g.Id == id);

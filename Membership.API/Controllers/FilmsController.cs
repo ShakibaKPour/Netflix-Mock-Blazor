@@ -21,10 +21,10 @@ namespace Membership.API.Controllers
         {
             try
             {
-                _db.Include<Director>();
-                //_db.Include<Film>();
+               
+                _db.Include<Film>();
                 _db.IncludeRef<FilmGenre>();
-               // _db.IncludeRef<SimilarFilm>();
+                
 
                 List<FilmDTO>? films = freeOnly ?
                 await _db.GetAsync<Film, FilmDTO>(c => c.Free.Equals(freeOnly)) :
@@ -43,9 +43,10 @@ namespace Membership.API.Controllers
         {
             try
             {
-                _db.Include<Director>();
+                
+                _db.Include<Film>();
                 _db.IncludeRef<FilmGenre>();
-                //_db.IncludeRef<SimilarFilm>();
+                
 
                 var film= await _db.SingleAsync<Film, FilmDTO>(_ => _.Id == id);
                 return Results.Ok(film);

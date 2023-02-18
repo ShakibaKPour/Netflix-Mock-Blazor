@@ -27,7 +27,7 @@ public class MembershipContext : DbContext
         {
             relationship.DeleteBehavior = DeleteBehavior.Restrict;
         }
-        builder.Entity<SimilarFilm>().HasKey(sf => new { sf.ParentFilmId, sf.SimilarFilmId });
+        builder.Entity<SimilarFilm>().HasKey(sf => new { sf.FilmId, sf.SimilarFilmId });
         //builder.Entity<SimilarFilm>().HasKey(sf => sf.Id);
         builder.Entity<FilmGenre>().HasKey(fg => new { fg.FilmId, fg.GenreId });
 
@@ -36,7 +36,7 @@ public class MembershipContext : DbContext
             {
                 entity.HasMany(d => d.SimilarFilms)
                 .WithOne(p => p.Film)
-                .HasForeignKey(f => f.ParentFilmId)
+                .HasForeignKey(f => f.FilmId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasMany(d => d.Genres)

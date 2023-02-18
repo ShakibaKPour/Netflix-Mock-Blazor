@@ -34,30 +34,26 @@ var config = new AutoMapper.MapperConfiguration(cfg =>
     cfg.CreateMap<Director, DirectorCreateDTO>().ReverseMap();
     cfg.CreateMap<Director, DirectorEditDTO>().ReverseMap();
 
-    cfg.CreateMap<Film, FilmDTO>().ReverseMap()
-    .ForMember(dest => dest.SimilarFilms, src=> src.Ignore())
-    .ForMember(dest => dest.Director, src=> src.Ignore())
-    .ForMember(dest => dest.Genres, src=> src.Ignore());
-    cfg.CreateMap<Film, FilmCreateDTO>().ReverseMap()
-    .ForMember(dest => dest.SimilarFilms, src => src.Ignore())
-    .ForMember(dest => dest.Director, src => src.Ignore());
-    cfg.CreateMap<Film, FilmEditDTO>().ReverseMap()
-    .ForMember(dest => dest.SimilarFilms, src => src.Ignore())
-    .ForMember(dest => dest.Director, src => src.Ignore());
+    cfg.CreateMap<Film, FilmDTO>()
+    /*.ForMember(dest => dest.SimilarFilms, opt => opt.MapFrom(src => src.SimilarFilms))
+    .ForMember(dest => dest.Genres, opt => opt.MapFrom(src => src.Genres))
+    .ForMember(dest => dest.Director, opt => opt.MapFrom(src => src.Director))*/
+    .ReverseMap();
 
-    cfg.CreateMap<Genre, GenreDTO>().ReverseMap()
-    .ForMember(dest => dest.Films, src => src.Ignore());
-    cfg.CreateMap<Genre, GenreCreateDTO>().ReverseMap()
-    .ForMember(dest => dest.Films, src => src.Ignore());
-    cfg.CreateMap<Genre, GenreEditDTO>().ReverseMap()
-    .ForMember(dest => dest.Films, src => src.Ignore());
+    cfg.CreateMap<Film, FilmCreateDTO>().ReverseMap();
+    
+    cfg.CreateMap<Film, FilmEditDTO>().ReverseMap();
 
-    cfg.CreateMap<SimilarFilm, SimilarFilmDTO>().ReverseMap()
-    .ForMember(dest => dest.Similar, src => src.Ignore());
+    cfg.CreateMap<Genre, GenreDTO>().ReverseMap();
 
-    cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap()
-    .ForMember(dest => dest.Film, src => src.Ignore())
-    .ForMember(dest => dest.Genre, src => src.Ignore());
+    cfg.CreateMap<Genre, GenreCreateDTO>().ReverseMap();
+
+    cfg.CreateMap<Genre, GenreEditDTO>().ReverseMap();
+
+    cfg.CreateMap<SimilarFilm, SimilarFilmDTO>().ReverseMap();
+
+    cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
+    
 });
 var mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
