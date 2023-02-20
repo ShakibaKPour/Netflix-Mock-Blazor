@@ -9,6 +9,16 @@
     </div>
 }
 
+@if (Navigation == PageType.Create)
+{
+    <ChangeGenre Page="@Navigation" OnChange="OnChange"></ChangeGenre>
+}
+
+@if (Navigation == PageType.Delete || Navigation == PageType.Edit)
+{
+    <ChangeGenre Page="@Navigation" OnChange="OnChange" Model="Genre"></ChangeGenre>
+}
+
 <div class="d-flex me-1">
     <a href="/" class="btn btn-outline-secondary rounded-0 me-1">Home</a>
     <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Index)">Index</button>
@@ -35,7 +45,21 @@
     {
         if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
             Genre = await AdminService.SingleAsync<GenreDTO>($"genres/{model.Id}")?? new();
-            ChangePageType(model.PageType);
-       
+        ChangePageType(model.PageType);
+
+    }
+
+    async Task OnChange(string message)
+    {
+        try
+        {
+            alert = message;
+            Model = await AdminService.GetAsync<GenreDTO>("genres");
+            ChangePageType(PageType.Index);
+        }
+        catch
+        {
+            alert = "Couldn't create/edit/delete the course.";
+        }
     }
 }

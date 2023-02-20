@@ -4,7 +4,7 @@ namespace Common.Services
 {
     public class AdminService : IAdminService
     {
-        private readonly MembershipHttpClient _http;
+        readonly MembershipHttpClient _http;
 
         public AdminService(MembershipHttpClient httpClient)
         {
@@ -18,7 +18,7 @@ namespace Common.Services
                 using HttpResponseMessage response = await _http.Client.GetAsync(uri);
                 response.EnsureSuccessStatusCode();
 
-                var result = JsonSerializer.Deserialize<List<TDto>>(await response.Content.ReadAsStringAsync(),
+                var result = JsonSerializer.Deserialize<List<TDto>>(await response.Content.ReadAsStreamAsync(),
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 return result ?? new List<TDto>();
@@ -29,14 +29,14 @@ namespace Common.Services
             }
         }
 
-        public async Task<TDto> SingleAsync<TDto>(string uri)
+        public async Task<TDto?> SingleAsync<TDto>(string uri)
         {
             try
             {
                 using HttpResponseMessage response = await _http.Client.GetAsync(uri);
                 response.EnsureSuccessStatusCode();
 
-                var result = JsonSerializer.Deserialize<TDto>(await response.Content.ReadAsStringAsync(),
+                var result = JsonSerializer.Deserialize<TDto>(await response.Content.ReadAsStreamAsync(),
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 return result ?? default;
