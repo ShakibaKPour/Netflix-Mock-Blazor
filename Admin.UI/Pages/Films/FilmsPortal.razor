@@ -36,8 +36,8 @@
 @code {
     List<FilmDTO> Model { get; set; } = new();
 
-    string alert = string.Empty;
-    string Navigation = string.Empty;
+    string alert = "";
+    string Navigation { get; set; } = PageType.Index;
     public FilmDTO Film { get; set; } = new();
 
     void ChangePageType(string pageType)
@@ -46,12 +46,12 @@
     }
     void CloseAlert()
     {
-        alert = string.Empty;
+        alert = "";
     }
 
     protected override async Task OnInitializedAsync()
     {
-        alert = string.Empty;
+        alert = "";
 
         //Model = await AdminService.GetAsync<FilmDTO>($"films?freeonly=false");
 

@@ -1,5 +1,68 @@
-﻿<h3>DirectorsPortal</h3>
+﻿@using Common.Services;
+@inject IAdminService AdminService;
+@*<h3>@Navigation</h3>*@
+@if (alert!=string.Empty)
+{
+        <div class="d-flex">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@alert</strong>
+            <button type="button" @onclick="CloseAlert" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+}
+@if (Navigation == PageType.Create)
+{
+    <ChangeDirector Page="@Navigation" OnChange="OnChange"></ChangeDirector>
+}
+
+@if (Navigation == PageType.Delete || Navigation== PageType.Edit)
+{
+    <ChangeDirector Page="@Navigation" OnChange="OnChange" Model="Director"></ChangeDirector>
+}
+
+<div class="d-flex me-1">
+    <a href="/" class="btn btn-outline-secondary rounded-0 me-1">Home</a>
+    <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Index)">Index</button>
+    <button type="button" class="btn btn-outline-success rounded-0" @onclick="()=>ChangePageType(PageType.Create)">Create</button>
+</div>
+
+<DirectorsIndex OnClick="OnClick" Model="Model"></DirectorsIndex> @*Connected to the eventcallback*@
 
 @code {
+    List<DirectorDTO> Model { get; set; } = new();
+    string alert = "";
+    string Navigation { get; set; } = PageType.Index;
+    public DirectorDTO Director { get; set; } = new();
+
+    void ChangePageType(string pageType) => Navigation = pageType;
+
+    void CloseAlert() => alert = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        alert = ""; 
+        Model = await AdminService.GetAsync<DirectorDTO>("directors");
+    }
+
+    async Task OnClick(ClickModel model)
+    {
+        if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete)) // for filling the form or not
+            Director = await AdminService.SingleAsync<DirectorDTO>($"directors/{model.Id}") ?? new();
+        ChangePageType(model.PageType);
+    }
+
+    async Task OnChange(string message)
+    {
+        try
+        {
+            alert = message;
+            Model = await AdminService.GetAsync<DirectorDTO>("directors");
+            ChangePageType(PageType.Index);
+        }
+        catch
+        {
+            alert = "Couldn't create/edit/delete the course.";
+        }
+    }
 
 }
