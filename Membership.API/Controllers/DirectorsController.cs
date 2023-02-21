@@ -38,7 +38,7 @@ namespace Membership.API.Controllers
             try
             {
                 _db.Include<Director>();
-                var director = await _db.GetAsync<Director, DirectorDTO>(d=> d.Id.Equals(id));
+                var director = await _db.SingleAsync<Director, DirectorDTO>(d=> d.Id.Equals(id));
                 return Results.Ok(director);
             }
             catch { }

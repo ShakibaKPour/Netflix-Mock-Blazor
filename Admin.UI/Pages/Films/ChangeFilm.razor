@@ -40,15 +40,13 @@
                     <option value="@director.Id">@director.Name</option>
                 }
             </InputSelect>
-            @*<InputSelect @bind-Value="Model.GenreId" class="form-control mb-3">
-                <option value=0>Genres ...</option>
+           @* <InputSelect @bind-Value="SelectedValues" class="form-control mb-3">
                 @foreach (var genre in Genres)
                 {
                     <option value="@genre.Id">@genre.Name</option>
                 }
             </InputSelect>*@
-           @* <InputSelect @bind-Value="Model.SimilarFilms" class="form-control mb-3">
-                <option value=0>Similar Films ...</option>
+           @*<InputSelect @bind-Value="SelectedValues" class="form-control mb-3">
                 @foreach (var similarfilm in similarFilms)
                 {
                     <option value="@similarfilm.Id">@</option>
@@ -72,11 +70,14 @@
     List<DirectorDTO> Directors { get; set; } = new();
     List<GenreDTO> Genres { get; set; } = new();
     //List<SimilarFilmDTO> similarFilms { get; set; } = new();
+    //EditContext editContext{ get; set; }
+    //public int[] SelectedValues { get; set; } = new int[] { };
 
     protected override async Task OnInitializedAsync()
     {
+        //editContext = new(SelectedValues);
         Directors = await AdminService.GetAsync<DirectorDTO>("directors");
-        Genres = await AdminService.GetAsync<GenreDTO>("genres");
+        // Genres = await AdminService.GetAsync<GenreDTO>("genres");
         //similarFilms = await AdminService.GetAsync<SimilarFilmDTO>("similarfilms");
     } 
 

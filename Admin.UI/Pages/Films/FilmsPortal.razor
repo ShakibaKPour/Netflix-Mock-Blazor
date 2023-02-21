@@ -52,6 +52,7 @@
     protected override async Task OnInitializedAsync()
     {
         alert = "";
+        Model = await AdminService.GetAsync<FilmDTO>($"films?freeonly=false");
 
         //Model = await AdminService.GetAsync<FilmDTO>($"films?freeonly=false");
 
@@ -77,8 +78,6 @@
         //    });
 
         //await AdminService.DeleteAsync<FilmDTO>($"films/5");
-
-        Model = await AdminService.GetAsync<FilmDTO>($"films?freeonly=false");
 
     }
 

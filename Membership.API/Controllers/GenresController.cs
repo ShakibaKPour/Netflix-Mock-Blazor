@@ -39,7 +39,7 @@ namespace Membership.API.Controllers
                 _db.Include<Genre>();
                 _db.IncludeRef<FilmGenre>();
 
-                var entity = _db.SingleAsync<Genre, GenreDTO>(g=> g.Id == id);
+                var entity = await _db.SingleAsync<Genre, GenreDTO>(g=> g.Id == id);
                 return Results.Ok(entity);
 
             }catch { }
