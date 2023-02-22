@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\BloodDimond.jfif" />
+    <Content Remove="wwwroot\Images\DarkKnight.jfif" />
+    <Content Remove="wwwroot\Images\Departed.jfif" />
+    <Content Remove="wwwroot\Images\Gladiator.jfif" />
+    <Content Remove="wwwroot\Images\LOR.jfif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\BloodDimond.jfif" />
+    <None Include="wwwroot\Images\DarkKnight.jfif" />
+    <None Include="wwwroot\Images\Departed.jfif" />
+    <None Include="wwwroot\Images\Gladiator.jfif" />
+    <None Include="wwwroot\Images\LOR.jfif" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.2" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+  </ItemGroup>
+
+</Project>

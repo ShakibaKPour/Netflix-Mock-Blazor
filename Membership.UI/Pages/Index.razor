@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject IMembershipService MembershipService
+
+<PageTitle>Dashbord</PageTitle>
+
+<h1>Dashbord</h1>
+<div class="d-flex flex-wrap justify-content-center">
+    @foreach (var film in Films)
+    {
+        <FilmCard Film="@film" />
+    }
+</div>
+
+@code{
+    public List<FilmDTO> Films { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Films = await MembershipService.GetFilmsAsync(false);
+    }
+}
+
