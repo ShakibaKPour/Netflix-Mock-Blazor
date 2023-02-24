@@ -13,7 +13,7 @@ public class FilmDTO
     public string? ImageUrl { get; set; }
     public string? FilmUrl { get; set; }
 
-    public DirectorDTO? Director { get; set; }
+    public DirectorDTO Director { get; set; } = new();
     public List<GenreDTO>? Genres { get; set; }
 
     public List<SimilarFilmDTO>? SimilarFilms { get; set; }

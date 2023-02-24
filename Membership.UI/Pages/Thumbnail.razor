@@ -1,0 +1,35 @@
+﻿<div class="d-flex flex-column">
+<div class="d-flex flex-column">
+    <div class="img-thumbnail" style="background-image:url('@Film.ImageUrl');">
+        <img src="@Film.ImageUrl" />
+    </div>
+    <h1 class="mt-2">@Film.Title</h1>
+    <h4>@Film.Description</h4>
+    <h4>@Film.Director.Name</h4>
+    <li>
+            @Film.Genres
+            <ul>
+                @foreach (var genre in GenreModel)
+                {
+                    <li>@genre.Genre</li>
+                }
+            </ul>
+     </li>
+    
+    <a href="@Film.FilmUrl">Go to the film</a>
+</div>
+    @*<div class="d-flex flex-wrap justify-content-center">
+            @foreach (var film in SimialrModel)
+            {
+                <FilmCard Film="@film" />
+            }
+    </div>*@
+</div>
+@code {
+    [Parameter] public FilmDTO Film { get; set; } = new();
+    [Parameter] public DirectorDTO DirectorModel { get; set; } = new();
+    [Parameter] public List<FilmGenreDTO> GenreModel { get; set; } = new();
+    public List<SimilarFilmDTO> SimilarModel { get; set; } = new();
+
+
+}
