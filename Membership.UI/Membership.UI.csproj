@@ -8,18 +8,28 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\Images\BloodDimond.jfif" />
+    <Content Remove="wwwroot\Images\BloodDimond2.png" />
     <Content Remove="wwwroot\Images\DarkKnight.jfif" />
+    <Content Remove="wwwroot\Images\DarkKnight2.png" />
     <Content Remove="wwwroot\Images\Departed.jfif" />
+    <Content Remove="wwwroot\Images\Departed2.png" />
     <Content Remove="wwwroot\Images\Gladiator.jfif" />
+    <Content Remove="wwwroot\Images\Gladiator2.png" />
     <Content Remove="wwwroot\Images\LOR.jfif" />
+    <Content Remove="wwwroot\Images\LOR2.png" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\Images\BloodDimond.jfif" />
+    <None Include="wwwroot\Images\BloodDimond2.png" />
     <None Include="wwwroot\Images\DarkKnight.jfif" />
+    <None Include="wwwroot\Images\DarkKnight2.png" />
     <None Include="wwwroot\Images\Departed.jfif" />
+    <None Include="wwwroot\Images\Departed2.png" />
     <None Include="wwwroot\Images\Gladiator.jfif" />
+    <None Include="wwwroot\Images\Gladiator2.png" />
     <None Include="wwwroot\Images\LOR.jfif" />
+    <None Include="wwwroot\Images\LOR2.png" />
   </ItemGroup>
 
   <ItemGroup>

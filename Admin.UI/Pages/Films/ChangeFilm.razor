@@ -40,16 +40,17 @@
                     <option value="@director.Id">@director.Name</option>
                 }
             </InputSelect>
-           @* <InputSelect @bind-Value="SelectedValues" class="form-control mb-3">
+           @* <InputSelect multiple @bind-Value="Model.Genres.Select(g => g.Id).ToList()" class="form-control mb-3">
                 @foreach (var genre in Genres)
                 {
                     <option value="@genre.Id">@genre.Name</option>
                 }
-            </InputSelect>*@
-           @*<InputSelect @bind-Value="SelectedValues" class="form-control mb-3">
+            </InputSelect>
+
+            <InputSelect multiple @bind-Value="Model.SimilarFilms.Select(s => s.Id).ToList()" class="form-control mb-3">
                 @foreach (var similarfilm in similarFilms)
                 {
-                    <option value="@similarfilm.Id">@</option>
+                    <option value="@similarfilm.Id">@similarfilm.Title</option>
                 }
             </InputSelect>*@
             <div class="mb-3">
@@ -69,7 +70,7 @@
     [Parameter] public EventCallback<string> OnChange { get; set; }
     List<DirectorDTO> Directors { get; set; } = new();
     List<GenreDTO> Genres { get; set; } = new();
-    //List<SimilarFilmDTO> similarFilms { get; set; } = new();
+    List<SimilarFilmDTO> similarFilms { get; set; } = new();
     //EditContext editContext{ get; set; }
     //public int[] SelectedValues { get; set; } = new int[] { };
 
@@ -77,8 +78,8 @@
     {
         //editContext = new(SelectedValues);
         Directors = await AdminService.GetAsync<DirectorDTO>("directors");
-        // Genres = await AdminService.GetAsync<GenreDTO>("genres");
-        //similarFilms = await AdminService.GetAsync<SimilarFilmDTO>("similarfilms");
+         Genres = await AdminService.GetAsync<GenreDTO>("genres");
+        similarFilms = await AdminService.GetAsync<SimilarFilmDTO>("similarfilms");
     } 
 
     private async Task OnFormSubmit()

@@ -4,7 +4,7 @@
             <th>Title</th>
             <th>Free</th>
             <th>Director</th>
-           @*<th>Genres</th>*@
+           <th>Genres</th>
             <th>Description</th>
             <th></th>
         </tr>
@@ -16,8 +16,9 @@
                 <td>@item.Title</td>
                 <td>@(item.Free ? "Free" : "")</td>
                 <td>@item.Director.Name</td>
-                @*<td>@item.Genres.ToList().ToString()</td>*@
-                <td>@item.Description.Truncate(10)</td>
+                <td>@string.Join(",", item.Genres.Select(g => g.Name))</td>
+
+                <td>@item.Description.Truncate(5)</td>
                 <td>
                     <div class="d-flex me-1 justify-content-end">
                         <button class="btn btn-outline-primary rounded-0 me-1" @onclick="@(() => OnClick.InvokeAsync(new ClickModel(PageType.Edit, item.Id)))">Edit</button>

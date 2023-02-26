@@ -23,7 +23,7 @@ public class Film : IEntity
     public string FilmUrl { get; set; }
     [MaxLength(225), Required]
     public string ImageUrl { get; set; }
-    public virtual Director Director { get; set; }
+    public virtual Director? Director { get; set; }
     public virtual ICollection<Genre> Genres { get; set; }
 
     public virtual ICollection<SimilarFilm> SimilarFilms { get; set; }

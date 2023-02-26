@@ -94,7 +94,7 @@ public static class MembershipContextExtension
                 Released = new DateTime(2000, 1, 1),
                 Free = false,
                 FilmUrl = "https://www.youtube.com/embed/uvbavW31adA",
-                ImageUrl = "/Images/Gladiator.jfif",
+                ImageUrl = "/Images/Gladiator2.png",//"/Images/Gladiator.jfif",
                 DirectorId = director1.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
@@ -104,7 +104,7 @@ public static class MembershipContextExtension
                 Released = new DateTime(2008, 1, 1),
                 Free = false,
                 FilmUrl = "https://www.youtube.com/embed/EXeTwQWrcwY",
-                ImageUrl = "/Images/DarkKnight.jfif",
+                ImageUrl = "/Images/DarkKnight2.png",
                 DirectorId = director2.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
@@ -114,7 +114,7 @@ public static class MembershipContextExtension
                 Released = new DateTime(2006, 1, 1),
                 Free = true,
                 FilmUrl = "https://www.youtube.com/embed/iojhqm0JTW4",
-                ImageUrl = "/Images/Departed.jfif",
+                ImageUrl = "/Images/Departed2.png",
                 DirectorId = director3.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
@@ -124,7 +124,7 @@ public static class MembershipContextExtension
                 Released = new DateTime(2003, 1, 1),
                 Free = true,
                 FilmUrl = "https://www.youtube.com/embed/r5X-hFf6Bwo", //title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>",
-                ImageUrl = "/Images/LOR.jfif",
+                ImageUrl = "/Images/LOR2.png",
                 DirectorId = director4.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
@@ -134,7 +134,7 @@ public static class MembershipContextExtension
                 Released = new DateTime(2006, 1, 1),
                 Free = true,
                 FilmUrl = "https://www.youtube.com/embed/yknIZsvQjG4", // title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>",
-                ImageUrl = "/Images/BloodDimond.jfif",
+                ImageUrl = "/Images/BloodDimond2.png",
                 DirectorId = director5.Id
             });
             await service.SaveChangeAsync();
