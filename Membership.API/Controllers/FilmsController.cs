@@ -1,7 +1,4 @@
-﻿using Membership.Database.Entities;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Membership.API.Controllers
 {
@@ -21,11 +18,9 @@ namespace Membership.API.Controllers
         {
             try
             {
-               
                 _db.Include<Film>();
                 _db.IncludeRef<FilmGenre>();
                 
-
                 List<FilmDTO>? films = freeOnly ?
                 await _db.GetAsync<Film, FilmDTO>(c => c.Free.Equals(freeOnly)) :
                 await _db.GetAsync<Film, FilmDTO>();
@@ -43,14 +38,11 @@ namespace Membership.API.Controllers
         {
             try
             {
-                
                 _db.Include<Film>();
                 _db.IncludeRef<FilmGenre>();
                 
-
                 var film= await _db.SingleAsync<Film, FilmDTO>(_ => _.Id == id);
                 return Results.Ok(film);
-
             }
             catch
             {
@@ -69,9 +61,6 @@ namespace Membership.API.Controllers
                 var film = await _db.AddAsync<Film, FilmCreateDTO>(dto);
                 var success = await _db.SaveChangeAsync();
                 if (!success) return Results.BadRequest(); 
-
-
-
                 return Results.Created(_db.GetURI<Film>(film), film);
             }
             catch { }

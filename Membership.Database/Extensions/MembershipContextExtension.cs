@@ -1,8 +1,4 @@
-﻿using Common.DTOs;
-using Membership.Database.Services;
-using Microsoft.Identity.Client;
-
-namespace Membership.Database.Extensions;
+﻿namespace Membership.Database.Extensions;
 
 public static class MembershipContextExtension
 {
@@ -94,7 +90,7 @@ public static class MembershipContextExtension
                 Released = new DateTime(2000, 1, 1),
                 Free = false,
                 FilmUrl = "https://www.youtube.com/embed/uvbavW31adA",
-                ImageUrl = "/Images/Gladiator2.png",//"/Images/Gladiator.jfif",
+                ImageUrl = "/Images/Gladiator2.png",
                 DirectorId = director1.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
@@ -123,8 +119,7 @@ public static class MembershipContextExtension
                 Description = description,
                 Released = new DateTime(2003, 1, 1),
                 Free = true,
-                FilmUrl = "https://www.youtube.com/embed/r5X-hFf6Bwo", //title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>",
-                ImageUrl = "/Images/LOR2.png",
+                FilmUrl = "https://www.youtube.com/embed/r5X-hFf6Bwo", 
                 DirectorId = director4.Id
             });
             await service.AddAsync<Film, FilmDTO>(new FilmDTO
@@ -133,7 +128,7 @@ public static class MembershipContextExtension
                 Description = description,
                 Released = new DateTime(2006, 1, 1),
                 Free = true,
-                FilmUrl = "https://www.youtube.com/embed/yknIZsvQjG4", // title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen></iframe>",
+                FilmUrl = "https://www.youtube.com/embed/yknIZsvQjG4", 
                 ImageUrl = "/Images/BloodDimond2.png",
                 DirectorId = director5.Id
             });

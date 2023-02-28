@@ -7,3 +7,8 @@ public class SimilarFilmDTO
 
    // public FilmInfoDTO? Similar { get; set; }
 }
+
+public class SimilarFilmInfoDTO : SimilarFilmDTO
+{
+    public FilmInfoDTO? Similar { get; set; }
+}

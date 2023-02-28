@@ -5,7 +5,7 @@
             <th>Free</th>
             <th>Director</th>
             <th>Genres</th>
-            <th>Similar Films</th>
+            @* <th>Similar Films</th>*@
             <th>Description</th>
             <th></th>
         </tr>
@@ -18,9 +18,8 @@
                 <td>@(item.Free ? "Free" : "")</td>
                 <td>@item.Director?.Name</td>
                 <td>@string.Join(",", item?.Genres?.Select(g => g.Name).ToList() ?? new())</td>
-                <td></td>
                 @*<td>@string.Join(",", item?.SimilarFilms?.Select(s => s.SimilarFilmId))</td>*@
-                <td>@item.Description?.Truncate(10)</td>
+                <td>@item.Description?.Truncate(30)</td>
                 <td>
                     <div class="d-flex me-1 justify-content-end">
                         <button class="btn btn-outline-primary rounded-0 me-1" @onclick="@(() => OnClick.InvokeAsync(new ClickModel(PageType.Edit, item.Id)))">Edit</button>
@@ -35,9 +34,4 @@
 @code {
     [Parameter] public List<FilmDTO> Model { get; set; } = new();
     [Parameter] public EventCallback<ClickModel> OnClick { get; set; }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        
-    }
 }

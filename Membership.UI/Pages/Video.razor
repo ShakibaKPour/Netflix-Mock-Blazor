@@ -1,0 +1,13 @@
+﻿@*@page "/"
+@inject IMembershipService MembershipService*@
+
+<div class="d-flex flex-column">
+<a class="btn btn-primary rounded-0 mb-1" href="/">
+    <i class="oi oi-arrow-left"></i><span class="vertical-align">Back to Dashboard</span>
+</a>
+
+</div>
+
+@code {
+    [Parameter] public FilmDTO Model { get; set; } = new();
+}

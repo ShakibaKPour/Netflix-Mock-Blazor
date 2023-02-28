@@ -48,13 +48,13 @@
                 }
             </InputSelect>
 
-              <InputSelect class="form-control mb-3" multiple @bind-Value="Model.SimilarFilms">
+              @*<InputSelect class="form-control mb-3" multiple @bind-Value="Model.SimilarFilms">
                 <option value=0>SimilarFilms ...</option>
                 @foreach (var similarfilm in similarFilms)
                 {
                     <option value="@similarfilm.SimilarFilmId">@similarfilm.SimilarFilmId</option>
                 }
-            </InputSelect>
+            </InputSelect>*@
             <div class="mb-3">
                 <label>
                     <InputCheckbox @bind-Value="Model.Free" />

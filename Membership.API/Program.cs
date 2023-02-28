@@ -1,11 +1,3 @@
-
-using Membership.Database.Contexts;
-using Membership.Database.Entities;
-using Membership.Database.Services;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using static System.Collections.Specialized.BitVector32;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -58,6 +50,8 @@ var config = new AutoMapper.MapperConfiguration(cfg =>
     cfg.CreateMap<SimilarFilm, SimilarFilmDTO>().ReverseMap();
 
     cfg.CreateMap<SimilarFilm, FilmInfoDTO>();
+
+    cfg.CreateMap<SimilarFilm, SimilarFilmInfoDTO>();
 
     cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
     
