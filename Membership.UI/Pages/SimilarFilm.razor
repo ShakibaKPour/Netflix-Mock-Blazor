@@ -1,6 +1,16 @@
 ﻿@inject IMembershipService MembershipService
-<li></li>
+@*<div class="d-flex flex-wrap justify-content-center" @bind-Value="SimilarFilms.">
+    @foreach (var film in SimilarFilms)
+        {
+        <option value="@film.Id">@film.Title</option>
+        }
+    </div>*@
 
 @code {
-    [Parameter] public List<SimilarFilmDTO> SimilarModel { get; set; } = new();
+    public List<FilmInfoDTO> SimilarFilms { get; set; } = new();
+
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    SimilarFilms = await MembershipService.GetFilmsAsync List<FilmDTO>>($"films?freeOnly={freeOnly}");
+    //}
 }

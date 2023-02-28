@@ -69,6 +69,9 @@ namespace Membership.API.Controllers
                 var film = await _db.AddAsync<Film, FilmCreateDTO>(dto);
                 var success = await _db.SaveChangeAsync();
                 if (!success) return Results.BadRequest(); 
+
+
+
                 return Results.Created(_db.GetURI<Film>(film), film);
             }
             catch { }

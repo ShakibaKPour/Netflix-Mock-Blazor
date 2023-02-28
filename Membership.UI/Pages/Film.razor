@@ -5,7 +5,13 @@
 <a class="btn btn-primary rounded-0 mb-1" href="/">
     <i class="oi oi-arrow-left"></i><span class="vertical-align">Back to Dashboard</span>
 </a>
-<Thumbnail Film="Model"/>
+@if(Model is not null)
+{
+<Thumbnail Film="Model"/>   
+}
+
+@*<SimilarFilm = "Model.similarfilm"/>*@
+
 @code {
     [Parameter] public int Id { get; set; }
     public FilmDTO Model { get; set; } = new();

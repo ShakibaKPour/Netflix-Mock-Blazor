@@ -2,7 +2,7 @@
     <thead>
         <tr>
             <th>Name</th>
-            @*<th>Films</th>*@
+            <th>Films</th>
         </tr>
     </thead>
     <tbody>
@@ -10,7 +10,7 @@
         {
             <tr>
                 <td>@item.Name</td>
-                @*<td>@item.Films.ToList().ToString()</td>*@
+                @*<td>@string.Join(",", item.Films.Select(f => f.Title))</td>*@
                 <td>
                     <div class="d-flex me-1 justify-content-end">
                         <button class="btn btn-outline-primary rounded-0 me-1" @onclick="@(() => OnClick.InvokeAsync(new ClickModel(PageType.Edit, item.Id)))">Edit</button>

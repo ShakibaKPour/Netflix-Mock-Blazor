@@ -33,6 +33,7 @@ var config = new AutoMapper.MapperConfiguration(cfg =>
     cfg.CreateMap<Director, DirectorDTO>().ReverseMap();
     cfg.CreateMap<Director, DirectorCreateDTO>().ReverseMap();
     cfg.CreateMap<Director, DirectorEditDTO>().ReverseMap();
+    cfg.CreateMap<Director, DirectorInfoDTO>();
 
     cfg.CreateMap<Film, FilmDTO>()
     /*.ForMember(dest => dest.SimilarFilms, opt => opt.MapFrom(src => src.SimilarFilms))
@@ -44,13 +45,19 @@ var config = new AutoMapper.MapperConfiguration(cfg =>
     
     cfg.CreateMap<Film, FilmEditDTO>().ReverseMap();
 
+    cfg.CreateMap<Film, FilmInfoDTO>();
+
     cfg.CreateMap<Genre, GenreDTO>().ReverseMap();
 
     cfg.CreateMap<Genre, GenreCreateDTO>().ReverseMap();
 
     cfg.CreateMap<Genre, GenreEditDTO>().ReverseMap();
 
+    cfg.CreateMap<Genre, GenreInfoDTO>();
+
     cfg.CreateMap<SimilarFilm, SimilarFilmDTO>().ReverseMap();
+
+    cfg.CreateMap<SimilarFilm, FilmInfoDTO>();
 
     cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
     

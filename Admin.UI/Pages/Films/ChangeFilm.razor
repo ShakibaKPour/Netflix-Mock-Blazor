@@ -1,7 +1,7 @@
 ﻿@inject IAdminService AdminService;
 
 <div class="d-xl-flex justify-content-center">
-    <EditForm Model="@Model" OnValidSubmit="@OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
+    <EditForm EditContext="@editContext"  OnValidSubmit="@OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
         <DataAnnotationsValidator />
         <h4>@Page Film</h4>
         <div class="mb-3">
@@ -40,19 +40,21 @@
                     <option value="@director.Id">@director.Name</option>
                 }
             </InputSelect>
-           @* <InputSelect multiple @bind-Value="Model.Genres.Select(g => g.Id).ToList()" class="form-control mb-3">
+            <InputSelect class="form-control mb-3" @bind-Value="SelectedValues">
+                <option value=0>Genres ...</option>
                 @foreach (var genre in Genres)
                 {
                     <option value="@genre.Id">@genre.Name</option>
                 }
             </InputSelect>
 
-            <InputSelect multiple @bind-Value="Model.SimilarFilms.Select(s => s.Id).ToList()" class="form-control mb-3">
+              <InputSelect class="form-control mb-3" multiple @bind-Value="Model.SimilarFilms">
+                <option value=0>SimilarFilms ...</option>
                 @foreach (var similarfilm in similarFilms)
                 {
-                    <option value="@similarfilm.Id">@similarfilm.Title</option>
+                    <option value="@similarfilm.SimilarFilmId">@similarfilm.SimilarFilmId</option>
                 }
-            </InputSelect>*@
+            </InputSelect>
             <div class="mb-3">
                 <label>
                     <InputCheckbox @bind-Value="Model.Free" />
@@ -71,21 +73,23 @@
     List<DirectorDTO> Directors { get; set; } = new();
     List<GenreDTO> Genres { get; set; } = new();
     List<SimilarFilmDTO> similarFilms { get; set; } = new();
-    //EditContext editContext{ get; set; }
-    //public int[] SelectedValues { get; set; } = new int[] { };
+
+    EditContext editContext{ get; set; }
+    public int[] SelectedValues { get; set; } = new int[] { };
 
     protected override async Task OnInitializedAsync()
     {
-        //editContext = new(SelectedValues);
+        editContext = new(SelectedValues);
         Directors = await AdminService.GetAsync<DirectorDTO>("directors");
-         Genres = await AdminService.GetAsync<GenreDTO>("genres");
-        similarFilms = await AdminService.GetAsync<SimilarFilmDTO>("similarfilms");
+        Genres = await AdminService.GetAsync<GenreDTO>("genres");
+        // similarFilms = await AdminService.GetAsync<SimilarFilmDTO>("similarfilms");
     } 
 
     private async Task OnFormSubmit()
     {
         try
         {
+            Model.SelectedValues = SelectedValues;
             if (Page.Equals(PageType.Create))
                 await AdminService.CreateAsync<FilmDTO>("films", Model);
 
